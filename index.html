@@ -3,34 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Responsive Image Gallery</title>
+  <title>Elegant Image Gallery</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-cZ84LkbzNqcnzrXcxvXEjR0Zu6FfzM/qhF+QNQ9h74Htv1UJGO9qI2NqFqFGL6eW" crossorigin="anonymous">
   <style>
     /* Custom CSS for gallery styling and animation */
     .gallery-container {
       position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      height: 400px; /* Set a fixed height for the gallery container */
+    }
+
+    .gallery-inner {
+      display: flex;
+      height: 100%; /* Make sure the inner container takes the full height */
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .gallery-item {
+      flex: 0 0 100%;
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .gallery-img {
       width: 100%;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease-in-out;
+      height: 100%;
+      object-fit: cover; /* Ensure all images appear as the same size */
+      border-radius: 12px;
+      position: relative;
     }
 
     .gallery-caption {
       text-align: center;
-      margin-top: 10px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff; /* Font color for the caption */
+      background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+      padding: 20px; /* Add padding for better readability */
+      border-radius: 12px;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .gallery-item:hover .gallery-caption {
+      opacity: 1;
+    }
+
+    .caption-content {
+      font-size: 18px;
     }
 
     .prev, .next {
       position: absolute;
       top: 50%;
-      transform: translateY(-50%);
       font-size: 24px;
       cursor: pointer;
-      color: #333;
+      color: #fff; /* Font color for the buttons */
+      background: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+      padding: 10px; /* Add padding for better readability */
+      border: none;
+      border-radius: 50%;
+      transition: background 0.3s ease-in-out;
     }
 
     .prev {
@@ -41,9 +89,8 @@
       right: 10px;
     }
 
-    /* Animation effect for gallery images */
-    .gallery-img:hover {
-      transform: scale(1.05);
+    .prev:hover, .next:hover {
+      background: rgba(0, 0, 0, 0.9); /* Darker background on hover */
     }
   </style>
 </head>
@@ -53,18 +100,32 @@
   <div class="row">
     <div class="col-md-8 offset-md-2">
       <div id="imageGallery" class="gallery-container">
-        <img src="https://th.bing.com/th/id/R.28262aad7d5a8d7a1e9d3326786b40d2?rik=016%2fKwOOwJUVZg&riu=http%3a%2f%2fwww.wallpaperup.com%2fuploads%2fwallpapers%2f2014%2f09%2f08%2f438558%2f28262aad7d5a8d7a1e9d3326786b40d2.jpg&ehk=pWPC78lIeKvuPMCqb7eoZU6VHdmrG4qZOlkL74MpOHA%3d&risl=&pid=ImgRaw&r=0" alt="Image 1" class="gallery-img">
-        <div class="gallery-caption">Caption for Image 1</div>
+        <div class="gallery-inner">
+          <div class="gallery-item">
+            <img src="https://th.bing.com/th/id/R.28262aad7d5a8d7a1e9d3326786b40d2?rik=016%2fKwOOwJUVZg&riu=http%3a%2f%2fwww.wallpaperup.com%2fuploads%2fwallpapers%2f2014%2f09%2f08%2f438558%2f28262aad7d5a8d7a1e9d3326786b40d2.jpg&ehk=pWPC78lIeKvuPMCqb7eoZU6VHdmrG4qZOlkL74MpOHA%3d&risl=&pid=ImgRaw&r=0" alt="Elegant Jewelry" class="gallery-img">
+            <div class="gallery-caption">
+              <div class="caption-content">Discover the allure of elegant jewelry that complements your style.</div>
+            </div>
+          </div>
 
-        <!-- Add blocks for additional images -->
-        <img src="https://www.andrewsjewellers.co.uk/wp-content/uploads/2019/07/iStock-157179585-scaled.jpg" alt="Image 2" class="gallery-img" style="display: none;">
-        <div class="gallery-caption" style="display: none;">Caption for Image 2</div>
+          <!-- Add blocks for additional images -->
+          <div class="gallery-item">
+            <img src="https://www.andrewsjewellers.co.uk/wp-content/uploads/2019/07/iStock-157179585-scaled.jpg" alt="Exquisite Diamonds" class="gallery-img">
+            <div class="gallery-caption">
+              <div class="caption-content">Experience the brilliance of exquisite diamonds that captivate hearts.</div>
+            </div>
+          </div>
 
-        <img src="https://3.bp.blogspot.com/-y9ot4SmOFsU/T650JwqiOPI/AAAAAAAAKjc/SegXTlaOSVo/s1600/entertainment-4you_diamonds+(15).jpg" alt="Image 3" class="gallery-img" style="display: none;">
-        <div class="gallery-caption" style="display: none;">Caption for Image 3</div>
+          <div class="gallery-item">
+            <img src="https://i.pinimg.com/originals/55/27/27/5527274ac7071171a5cfdf57b508dc55.jpg" alt="Luxurious Accessories" class="gallery-img">
+            <div class="gallery-caption">
+              <div class="caption-content">Indulge in luxurious accessories that define sophistication and style.</div>
+            </div>
+          </div>
+        </div>
 
-        <span class="prev" onclick="changeImage(-1)">&#10094;</span>
-        <span class="next" onclick="changeImage(1)">&#10095;</span>
+        <button class="prev" onclick="changeSlide(-1)">❮</button>
+        <button class="next" onclick="changeSlide(1)">❯</button>
       </div>
     </div>
   </div>
@@ -76,24 +137,20 @@
 
 <script>
   // JavaScript for image gallery functionality
-  let currentImageIndex = 0;
+  let currentSlideIndex = 0;
 
-  function changeImage(n) {
-    const images = document.querySelectorAll('.gallery-img');
-    const captions = document.querySelectorAll('.gallery-caption');
-    currentImageIndex += n;
+  function changeSlide(n) {
+    const slides = document.querySelectorAll('.gallery-item');
+    currentSlideIndex += n;
 
-    if (currentImageIndex >= images.length) {
-      currentImageIndex = 0;
-    } else if (currentImageIndex < 0) {
-      currentImageIndex = images.length - 1;
+    if (currentSlideIndex >= slides.length) {
+      currentSlideIndex = 0;
+    } else if (currentSlideIndex < 0) {
+      currentSlideIndex = slides.length - 1;
     }
 
-    images.forEach(img => img.style.display = 'none');
-    captions.forEach(caption => caption.style.display = 'none');
-
-    images[currentImageIndex].style.display = 'block';
-    captions[currentImageIndex].style.display = 'block';
+    slides.forEach(slide => slide.style.display = 'none');
+    slides[currentSlideIndex].style.display = 'flex';
   }
 </script>
 
