@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Image Gallery</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Custom CSS for gallery styling and animation */
+    .gallery-container {
+      position: relative;
+    }
+
+    .gallery-img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .gallery-caption {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    /* Animation effect for gallery images */
+    .gallery-img:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container my-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div id="imageGallery" class="gallery-container">
+        <img src="https://th.bing.com/th/id/R.28262aad7d5a8d7a1e9d3326786b40d2?rik=016%2fKwOOwJUVZg&riu=http%3a%2f%2fwww.wallpaperup.com%2fuploads%2fwallpapers%2f2014%2f09%2f08%2f438558%2f28262aad7d5a8d7a1e9d3326786b40d2.jpg&ehk=pWPC78lIeKvuPMCqb7eoZU6VHdmrG4qZOlkL74MpOHA%3d&risl=&pid=ImgRaw&r=0" alt="Image 1" class="gallery-img">
+        <div class="gallery-caption">Caption for Image 1</div>
+
+        <!-- Add blocks for additional images -->
+        <img src="https://www.andrewsjewellers.co.uk/wp-content/uploads/2019/07/iStock-157179585-scaled.jpg" alt="Image 2" class="gallery-img" style="display: none;">
+        <div class="gallery-caption" style="display: none;">Caption for Image 2</div>
+
+        <img src="https://3.bp.blogspot.com/-y9ot4SmOFsU/T650JwqiOPI/AAAAAAAAKjc/SegXTlaOSVo/s1600/entertainment-4you_diamonds+(15).jpg" alt="Image 3" class="gallery-img" style="display: none;">
+        <div class="gallery-caption" style="display: none;">Caption for Image 3</div>
+
+        <span class="prev" onclick="changeImage(-1)">&#10094;</span>
+        <span class="next" onclick="changeImage(1)">&#10095;</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  // JavaScript for image gallery functionality
+  let currentImageIndex = 0;
+
+  function changeImage(n) {
+    const images = document.querySelectorAll('.gallery-img');
+    const captions = document.querySelectorAll('.gallery-caption');
+    currentImageIndex += n;
+
+    if (currentImageIndex >= images.length) {
+      currentImageIndex = 0;
+    } else if (currentImageIndex < 0) {
+      currentImageIndex = images.length - 1;
+    }
+
+    images.forEach(img => img.style.display = 'none');
+    captions.forEach(caption => caption.style.display = 'none');
+
+    images[currentImageIndex].style.display = 'block';
+    captions[currentImageIndex].style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
