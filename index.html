@@ -1,158 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Elegant Image Gallery</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-cZ84LkbzNqcnzrXcxvXEjR0Zu6FfzM/qhF+QNQ9h74Htv1UJGO9qI2NqFqFGL6eW" crossorigin="anonymous">
-  <style>
-    /* Custom CSS for gallery styling and animation */
-    .gallery-container {
-      position: relative;
-      overflow: hidden;
-      border-radius: 12px;
-      height: 400px; /* Set a fixed height for the gallery container */
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18.12.23</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="sha384-cZ84LkbzNqcnzrXcxvXEjR0Zu6FfzM/qhF+QNQ9h74Htv1UJGO9qI2NqFqFGL6eW" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #e6e5e1;
+        }
 
-    .gallery-inner {
-      display: flex;
-      height: 100%; /* Make sure the inner container takes the full height */
-      transition: transform 0.5s ease-in-out;
-    }
+        .gallery-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            height: 500px;
+            padding-bottom: 50px;
+            padding-right: 50px;
+        }
 
-    .gallery-item {
-      flex: 0 0 100%;
-      box-sizing: border-box;
-      position: relative;
-      overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+        .gallery-inner {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
 
-    .gallery-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover; /* Ensure all images appear as the same size */
-      border-radius: 12px;
-      position: relative;
-    }
+        .gallery-item {
+            flex: 0 0 100%;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: flex-end;
+            transform: translateY(40px) rotate(-3deg);
+            transform-origin: top left;
+            transition: transform 0.5s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
 
-    .gallery-caption {
-      text-align: center;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff; /* Font color for the caption */
-      background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-      padding: 20px; /* Add padding for better readability */
-      border-radius: 12px;
-      opacity: 0;
-      transition: opacity 0.3s ease-in-out;
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
+        .gallery-item:hover {
+            transform: scale(1.0); /* Zoom-in effect on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
 
-    .gallery-item:hover .gallery-caption {
-      opacity: 1;
-    }
+        .gallery-img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 12px;
+            position: relative;
+            transform-origin: center bottom;
+            transition: transform 0.5s ease-in-out;
+        }
 
-    .caption-content {
-      font-size: 18px;
-    }
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.2); /* Zoom-in effect on hover */
+        }
 
-    .prev, .next {
-      position: absolute;
-      top: 50%;
-      font-size: 24px;
-      cursor: pointer;
-      color: #fff; /* Font color for the buttons */
-      background: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
-      padding: 10px; /* Add padding for better readability */
-      border: none;
-      border-radius: 50%;
-      transition: background 0.3s ease-in-out;
-    }
+        .gallery-caption {
+            text-align: left; 
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; /* Align content to the right */
+            color: #fff;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 12px;
+            opacity: 0.8;
+            transition: opacity 1s ease-in-out;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
 
-    .prev {
-      left: 10px;
-    }
+        .gallery-item:hover .gallery-caption {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.9);
+            transform: translateY(-10px);
+        }
 
-    .next {
-      right: 10px;
-    }
+        .caption-content {
+            font-size: 18px;
+        }
 
-    .prev:hover, .next:hover {
-      background: rgba(0, 0, 0, 0.9); /* Darker background on hover */
-    }
-  </style>
+        .prev,
+        .next {
+            position: absolute;
+            top: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border: none;
+            border-radius: 50%;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        .prev:hover,
+        .next:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="container my-5">
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <div id="imageGallery" class="gallery-container">
-        <div class="gallery-inner">
-          <div class="gallery-item">
-            <img src="https://th.bing.com/th/id/R.28262aad7d5a8d7a1e9d3326786b40d2?rik=016%2fKwOOwJUVZg&riu=http%3a%2f%2fwww.wallpaperup.com%2fuploads%2fwallpapers%2f2014%2f09%2f08%2f438558%2f28262aad7d5a8d7a1e9d3326786b40d2.jpg&ehk=pWPC78lIeKvuPMCqb7eoZU6VHdmrG4qZOlkL74MpOHA%3d&risl=&pid=ImgRaw&r=0" alt="Elegant Jewelry" class="gallery-img">
-            <div class="gallery-caption">
-              <div class="caption-content">Discover the allure of elegant jewelry that complements your style.</div>
-            </div>
-          </div>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div id="imageGallery" class="gallery-container">
+                    <div class="gallery-inner">
+                        <div class="gallery-item">
+                            <img src="https://th.bing.com/th/id/R.28262aad7d5a8d7a1e9d3326786b40d2?rik=016%2fKwOOwJUVZg&riu=http%3a%2f%2fwww.wallpaperup.com%2fuploads%2fwallpapers%2f2014%2f09%2f08%2f438558%2f28262aad7d5a8d7a1e9d3326786b40d2.jpg&ehk=pWPC78lIeKvuPMCqb7eoZU6VHdmrG4qZOlkL74MpOHA%3d&risl=&pid=ImgRaw&r=0"
+                                alt="Playing Card 1" class="gallery-img">
+                            <div class="gallery-caption">
+                                <div class="caption-content">
+                                    <h5>Elegance that Sparkles</h5>
+                                    <p>Unveil the Timeless Beauty of Diamond Jewelry.</p>
+                                </div>
+                            </div>
+                        </div>
 
-          <!-- Add blocks for additional images -->
-          <div class="gallery-item">
-            <img src="https://www.andrewsjewellers.co.uk/wp-content/uploads/2019/07/iStock-157179585-scaled.jpg" alt="Exquisite Diamonds" class="gallery-img">
-            <div class="gallery-caption">
-              <div class="caption-content">Experience the brilliance of exquisite diamonds that captivate hearts.</div>
-            </div>
-          </div>
+                        <!-- Add blocks for additional images -->
+                        <div class="gallery-item">
+                            <img src="https://www.andrewsjewellers.co.uk/wp-content/uploads/2019/07/iStock-157179585-scaled.jpg"
+                                alt="Playing Card 2" class="gallery-img">
+                            <div class="gallery-caption">
+                                <div class="caption-content">
+                                    <h5>Dazzle in Diamonds</h5>
+                                    <p>Adorn Yourself with Our Exquisite Collection.</p>
+                                </div>
+                            </div>
+                        </div>
 
-          <div class="gallery-item">
-            <img src="https://i.pinimg.com/originals/55/27/27/5527274ac7071171a5cfdf57b508dc55.jpg" alt="Luxurious Accessories" class="gallery-img">
-            <div class="gallery-caption">
-              <div class="caption-content">Indulge in luxurious accessories that define sophistication and style.</div>
+                        <div class="gallery-item">
+                            <img src="https://i.pinimg.com/originals/55/27/27/5527274ac7071171a5cfdf57b508dc55.jpg"
+                                alt="Playing Card 3" class="gallery-img">
+                            <div class="gallery-caption">
+                                <div class="caption-content">
+                                    <h5>Each Sparkle Tells a Story</h5>
+                                    <p>Explore Our Diamond Masterpieces Today.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item">
+                            <img src="https://th.bing.com/th/id/OIP.effyERbV9fVc9jLA7cmwtwHaHa?w=1200&h=1200&rs=1&pid=ImgDetMain"
+                                alt="Playing Card 4" class="gallery-img">
+                            <div class="gallery-caption">
+                                <div class="caption-content">
+                                    <h5>Shine Brighter than the Stars</h5>
+                                    <p>Discover Your Perfect Diamond Ensemble.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item">
+                            <img src="https://i.pinimg.com/originals/2b/7f/c6/2b7fc6bedf6f19a27d37b4290d968fe2.jpg"
+                                alt="Playing Card 5" class="gallery-img">
+                            <div class="gallery-caption">
+                                <div class="caption-content">
+                                    <h5>Diamonds are Forever</h5>
+                                    <p>Elevate Your Style with our Luxurious Jewelry.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item">
+                            <img src="https://ae01.alicdn.com/kf/HTB1VdAjiTmWBKNjSZFBq6xxUFXay/RAKOL-Fashion-Waterdrop-Zircon-Drop-Earrings-Brinco-Luxury-Cubic-Zirconia-Curve-Big-Long-Party-Wedding-Earrings.jpg"
+                                alt="Playing Card 6" class="gallery-img">
+                            <div class="gallery-caption">
+                                <div class="caption-content">
+                                    <h5>Captivating Brilliance</h5>
+                                    <p>Experience the Magic of our Diamond Creations.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item">
+                            <img src="https://i.pinimg.com/736x/ab/1e/50/ab1e50156c5856d677b9dfcc983d97a0.jpg"
+                                alt="Playing Card 7" class="gallery-img">
+                            <div class="gallery-caption">
+                                <div class="caption-content">
+                                    <h5>Where Dreams Sparkle</h5>
+                                    <p>Shop the Finest Diamond Jewelry Designs.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item">
+                            <img src="https://modellpawn.com/wp-content/uploads/2018/01/necklace1.jpg"
+                                alt="Playing Card 8" class="gallery-img">
+                            <div class="gallery-caption">
+                                <div class="caption-content">
+                                    <h5>Eternal Beauty, Endless Brilliance</h5>
+                                    <p>Your Journey to Diamond Elegance.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item">
+                            <img src="https://i.pinimg.com/originals/f5/31/f6/f531f6f3eb3b4dc1c621b3e223859d7c.jpg"
+                                alt="Playing Card 9" class="gallery-img">
+                            <div class="gallery-caption">
+                                <div class="caption-content">
+                                    <h5>Beyond Radiance</h5>
+                                    <p>Explore the Glamour of our Diamond Jewelry Collection.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item">
+                            <img src="https://www.richdiamonds.com/lg_images/RD2761[1].jpg"
+                                alt="Playing Card 10" class="gallery-img">
+                            <div class="gallery-caption">
+                                <div class="caption-content">
+                                    <h5>A Symphony of Sparkles</h5>
+                                    <p>Uncover the Allure of Diamonds in Every Piece.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+                    <button class="next" onclick="changeSlide(1)">&#10095;</button>
+                </div>
             </div>
-          </div>
         </div>
-
-        <button class="prev" onclick="changeSlide(-1)">❮</button>
-        <button class="next" onclick="changeSlide(1)">❯</button>
-      </div>
     </div>
-  </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script>
-  // JavaScript for image gallery functionality
-  let currentSlideIndex = 0;
+    <script>
+        // JavaScript for image gallery functionality
+        let currentSlideIndex = 0;
 
-  function changeSlide(n) {
-    const slides = document.querySelectorAll('.gallery-item');
-    currentSlideIndex += n;
+        function changeSlide(n) {
+            const slides = document.querySelectorAll('.gallery-item');
+            currentSlideIndex += n;
 
-    if (currentSlideIndex >= slides.length) {
-      currentSlideIndex = 0;
-    } else if (currentSlideIndex < 0) {
-      currentSlideIndex = slides.length - 1;
-    }
+            if (currentSlideIndex >= slides.length) {
+                currentSlideIndex = 0;
+            } else if (currentSlideIndex < 0) {
+                currentSlideIndex = slides.length - 1;
+            }
 
-    slides.forEach(slide => slide.style.display = 'none');
-    slides[currentSlideIndex].style.display = 'flex';
-  }
-</script>
+            const transformValue = `translateX(${-currentSlideIndex * 100}%)`;
+            document.querySelector('.gallery-inner').style.transform = transformValue;
+        }
+    </script>
 
 </body>
+
 </html>
